@@ -42,6 +42,7 @@ class EthereumNetwork(Enum):
     MAINNET = 1
     ROPSTEN = 3
     RINKEBY = 4
+    BSC = 56
     GOERLI = 5
     KOVAN = 42
     XDAI = 100
