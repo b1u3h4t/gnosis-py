@@ -699,12 +699,12 @@ class ParityManager:
                    for i, block_identifier in enumerate(block_identifiers)]
         results = requests.post(self.ethereum_node_url, json=payload).json()
         traces = []
-        logger.info('trace_blocks: %s', results)
-        if results['error']:
-            if results['error']['message']:
-                logger.warning('trace_blocks: %s', results['error']['message'])
-            return traces
         for result in results:
+            if result['error']:
+                if result['error']['message']:
+                    logger.warning('trace_blocks: %s', result['error']['message'])
+                return traces
+
             raw_tx = result['result']
             if raw_tx:
                 try:
