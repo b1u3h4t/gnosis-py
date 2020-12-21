@@ -6,6 +6,7 @@ from typing import (Any, Dict, Iterable, List, NamedTuple, Optional, Sequence,
 
 import eth_abi
 import requests
+import json
 from eth_abi.exceptions import InsufficientDataBytes
 from eth_account import Account
 from eth_account.signers.local import LocalAccount
@@ -1167,7 +1168,8 @@ class EthereumClient:
                     'params': [hex(block_identifier) if isinstance(block_identifier, int) else block_identifier,
                                full_transactions]}
                    for i, block_identifier in enumerate(block_identifiers)]
-        results = requests.post(self.ethereum_node_url, json=payload).json()
+        # results = requests.post(self.ethereum_node_url, json=payload).json()
+        results = json.loads(requests.post(self.ethereum_node_url, json=payload).text)
         blocks = []
         for result in results:
             raw_block = result['result']
